@@ -1,0 +1,464 @@
+{% extends 'main/base.html' %}
+{% load static widget_tweaks %}
+{% block content %}
+
+
+    <section class="bg-gray pt-0">
+        <div class="slideshow-containter">
+            {% for slider in slider_list %}
+                <div class="mySlide w3-fade">
+                    <img src="{{ slider.image.url }}" style="width:100%">
+                    <div class="banner-caption_wrapper">
+                        <div class="banner-caption">
+                            {% if slider.text %}
+                                <div class="line-dec"></div>
+                                <h2>{{ slider.text }}</h2>
+                            {% endif %}
+                            {% if slider.url %}
+                                <div class="blue-button mt-30">
+                                    <a href="{{ slider.url }}">Посмотреть</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="indicators">
+                {% for slider in slider_list %}
+                    <span class="dot"
+                          onclick="currentSlide({{ forloop.counter }})"></span>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="popular-places" id="avtoschool">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <span>Автошколы Бишкека</span>
+                        <h2>Посмотрите и запишитесь на курс автошколы</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel owl-theme">
+                {% for school in avtoschools %}
+                    <div class="item popular-item">
+                        <a href="{% url 'avto_school_detail' school.id %}">
+                            <div class="thumb">
+                                <img src="{{ school.preview_image.url }}"
+                                     height=""
+                                     alt="">
+                                <div class="text-content">
+                                    <h4>{{ school.title }}</h4>
+                                    <span>{{ school.address }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="featured-places" id="course">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <span>Текущие курсы</span>
+                        <h2>Выберите самый подходящий курс для Вас</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for course in courses %}
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="featured-item">
+                            <div class="thumb">
+                                <img src="{{ course.preview_image.url }}"
+                                     alt="">
+                                <div class="date-content">
+                                    <h6>{{ course.start_date.day }}</h6>
+                                    <span>{{ course.start_date |date:"F" }}</span>
+                                </div>
+                            </div>
+                            <div class="down-content">
+                                <h4 class="title"
+                                    data-id="{{ course.id }}">{{ course.title }}</h4>
+                                <span>{{ course.avto_school }}</span>
+                                <p>{{ course.short_description }}</p>
+                                <div class="row">
+                                    <div class="col-md-6 first-button">
+                                        <div class="text-button">
+                                            <a href="{% url 'avto_course_detail' course.id %}">Подробно
+                                                о курсе</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-button">
+                                            <a href="#" class="sign-up-course">Записаться
+                                                на курс</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-places" id="instraction">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <span>Инструкторы Бишкека</span>
+                        <h2>Посмотрите и запишитесь на инструктора</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel owl-theme">
+                {% for teacher in teachers %}
+                    <div class="item popular-item">
+                        <div class="popular-teacher">
+                            <img src="{{ teacher.image.url }}"
+                                 height=""
+                                 alt="">
+                            <div class="teacher-contact">
+                                <a href="{% url 'teacher_detail' teacher.id %}">
+                                    <h4>{{ teacher.name }}</h4>
+                                </a>
+                                <span>{{ teacher.phone }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="our-services" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <span>О нас</span>
+                        <h2>Преимущества записаться у нас</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="{% static 'img/service_icon_1.png' %}"
+                                 alt="">
+                        </div>
+                        <h4>Хорошие цены</h4>
+                        <p>Etiam viverra nibh at lorem hendrerit porta non nec
+                            ligula. Donec hendrerit porttitor pretium.
+                            Suspendisse
+                            fermentum nec risus.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="{% static 'img/service_icon_2.png' %}"
+                                 alt="">
+                        </div>
+                        <h4>Доверенные автошколы</h4>
+                        <p>Vivamus nec vehicula felis, sit amet convallis ex.
+                            Aenean
+                            dolor risus, rutrum at tincidunt eget, placerat ac
+                            mauris.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="{% static 'img/service_icon_3.png' %}"
+                                 alt="">
+                        </div>
+                        <h4>Контроль качества курса</h4>
+                        <p>Praesent nec dui sed urna pharetra dapibus at ac
+                            elit.
+                            Aenean hendrerit metus leo, quis viverra purus
+                            condimentum nec.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="down-services">
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                <div class="left-content">
+                                    <h4>Если вы представителем автошколы</h4>
+                                    <p>Aenean hendrerit metus leo, quis viverra
+                                        purus condimentum nec. Pellentesque a
+                                        sem
+                                        semper, lobortis mauris non, varius
+                                        urna.
+                                        Quisque sodales purus eu tellus
+                                        fringilla.<br><br>Mauris sit amet quam
+                                        congue, pulvinar urna et, congue diam.
+                                        Suspendisse eu lorem massa. Integer sit
+                                        amet
+                                        posuere tellus, id efficitur leo. In hac
+                                        habitasse platea dictumst.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="accordions">
+                                    <ul class="accordion">
+                                        <li>
+                                            <a>Ut in dapibus ipsum</a>
+                                            <p>Nulla eget aliquet dui, vitae
+                                                tincidunt nulla. Sed sagittis
+                                                odio
+                                                vitae auctor volutpat. In semper
+                                                ex
+                                                neque, ut hendrerit mauris
+                                                rutrum
+                                                eget. Integer consectetur neque
+                                                eu
+                                                enim dictum porta. Sed et risus
+                                                ac
+                                                sapien congue mattis.</p>
+                                        </li>
+                                        <li>
+                                            <a>Vivamus ligula metus</a>
+                                            <p>Integer vel augue arcu. Fusce ac
+                                                turpis cursus, malesuada nulla
+                                                quis,
+                                                lobortis dui. Etiam blandit,
+                                                erat
+                                                efficitur rhoncus pellentesque,
+                                                ligula turpis tempor dolor.</p>
+                                        </li>
+                                        <li>
+                                            <a>Suspendisse dapibus</a>
+                                            <p>Nullam nibh lacus, rhoncus sit
+                                                amet
+                                                feugiat vel, porttitor sit amet
+                                                nibh. Pellentesque feugiat justo
+                                                nec
+                                                enim pretium, sed faucibus lacus
+                                                aliquam. Sed ac interdum
+                                                mauris.</p>
+                                        </li>
+                                    </ul> <!-- / accordion -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="contact" id="contact">
+
+        <div class="container">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="wrapper">
+                    <div class="section-heading">
+                        <span>Есть пожелание/жалобы?</span>
+                        <h2>Мы всегда готовы помочь</h2>
+                    </div>
+                    <!-- Modal button -->
+                    <button id="modBtn" class="modal-btn" style="margin-bottom: 25px">Связатся с нами
+                    </button>
+                </div>
+                <div id="modal" class="modal">
+                    <!-- Modal Content -->
+                    <div class="modal-content">
+                        <div class="close fa fa-close"></div>
+
+                        <form action="{% url 'feedback_form' %}" method="post"
+                              enctype="multipart/form-data" class="data-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="left-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="section-heading">
+                                                    <span></span>
+                                                    <h2>Напишите нам</h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    {% render_field feedback_data.name class='form-control' placeholder='Ваше имя...' %}
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <fieldset>
+                                                    {% render_field feedback_data.phone_number class='form-control' placeholder='Наш номер...' %}
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    {% render_field feedback_data.message class='form-control' placeholder='Текст...' %}
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <fieldset>
+                                                    <button type="submit"
+                                                            id="form-submit"
+                                                            class="btn submit-btn">
+                                                        Отправить
+                                                    </button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% include 'partials/modal_info.html' %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="course_modal" class="modal">
+        <!-- Modal Content -->
+        <div class="modal-content">
+            <div class="close fa fa-close"></div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="left-content">
+                        <form action="{% url 'course_form' %}" method="post"
+                              enctype="multipart/form-data" class="data-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="section-heading">
+                                        <span></span>
+                                        <h2 class="course-title">Напишите
+                                            нам</h2>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="course-input"
+                                       name="course" value="">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        {% render_field course_data.name class='form-control' placeholder='Ваше имя...' %}
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        {% render_field course_data.phone_number class='form-control' placeholder='Наш номер...' %}
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        {% render_field course_data.message class='form-control' placeholder='Текст...' %}
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit"
+                                                id="form-submit"
+                                                class="btn submit-btn">Отправить
+                                        </button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% include 'partials/modal_info.html' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(function () {
+
+            var courseBtn = $('.sign-up-course'),
+                modal = $('#course_modal'),
+                close = modal.find('.close'),
+                modContent = modal.find('.modal-content'),
+                courseInput = modal.find('.course-input'),
+                courseTitle = modal.find('.course-title');
+
+            // open modal when click on open modal button
+            courseBtn.on('click', function (e) {
+                e.preventDefault();
+                let courseCont = $(this).closest('.row').siblings('.title')
+                let title = courseCont.text(),
+                    id = courseCont.data('id');
+                console.log(title, id)
+                courseTitle.text(title)
+                courseInput.val(id)
+                modal.css('display', 'block');
+                modContent.removeClass('modal-animated-out').addClass('modal-animated-in');
+            });
+
+            // close modal when click on close button or somewhere out the modal content
+            $(document).on('click', function (e) {
+                var target = $(e.target);
+                if (target.is(modal) || target.is(close)) {
+                    modContent.removeClass('modal-animated-in').addClass('modal-animated-out').delay(300).queue(function (next) {
+                        modal.css('display', 'none');
+                        next();
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlide");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" actives", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " actives";
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="bg-gray pb-30">
+        <section class="pt-30" id="popular">
+            <div class="container ">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="popular-teacher">
+                            <img src="{{ teacher.image.url }}"
+                                 height=""
+                                 alt="">
+                            <div class="teacher-contact">
+                                <h4>{{ teacher.name }}</h4>
+                                <span>{{ teacher.phone }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="pt-30" id="blog">
+            <div class="container">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="detail-description">
+                            {{ teacher.description|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

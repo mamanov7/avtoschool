@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="banner" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="banner-caption detail-header">
+                        <h2>{{ school.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-gray">
+        <section class="pt-30" id="popular">
+            <div class="container">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="image_wrapper">
+                            <img
+                                    src="{{ school.preview_image.url }}"
+                                    alt="detail_img"/>
+                        </div>
+                        <div class="description-preview">
+                            <p>{{ school.address }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-30 pb-30" id="blog">
+            <div class="container">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="detail-description">
+                            {{ school.description|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

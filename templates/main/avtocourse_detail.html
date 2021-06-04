@@ -1,0 +1,117 @@
+{% extends 'main/base.html' %}
+{% load static widget_tweaks %}
+
+{% block content %}
+    <section class="banner" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="banner-caption detail-header">
+                        <h2>{{ course.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-gray">
+        <section class="pt-30" id="popular">
+            <div class="container">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="image_wrapper">
+                            <img
+                                    src="{{ course.preview_image.url }}"
+                                    alt="detail_img"/>
+                        </div>
+                        <div class="description-preview">
+                            <p class="description-p">{{ course.short_description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="pt-30" id="blog">
+            <div class="container">
+                <div class="block_wrapper">
+                    <div class="col-md-12 float-none">
+                        <div class="detail-description">
+                            {{ course.description|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="contact pt-30 pb-30" id="contact">
+
+            <div class="container">
+                <div class="col-md-12 block_wrapper float-none">
+                    <div class="wrapper">
+                        <!-- Modal button -->
+                        <button id="modBtn" class="modal-btn">Записаться на курс
+                        </button>
+                    </div>
+                    <div id="modal" class="modal">
+                        <!-- Modal Content -->
+                        <div class="modal-content">
+                            <div class="close fa fa-close"></div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="left-content">
+                                        <form action="{% url 'course_form' %}"
+                                              method="post"
+                                              class="data-form"
+                                              enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="section-heading">
+                                                        <span></span>
+                                                        <h2 class="course-title">{{ course.title }}</h2>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden"
+                                                       class="course-input"
+                                                       name="course"
+                                                       value="{{ course.id }}">
+                                                <div class="col-md-6">
+                                                    <fieldset>
+                                                        {% render_field course_data.name class='form-control' placeholder='Ваше имя...' %}
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <fieldset>
+                                                        {% render_field course_data.phone_number class='form-control' placeholder='Наш номер...' %}
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset>
+                                                        {% render_field course_data.message class='form-control' placeholder='Текст...' %}
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset>
+                                                        <button type="submit"
+                                                                id="form-submit"
+                                                                class="btn submit-btn">
+                                                            Отправить
+                                                        </button>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                {% include 'partials/modal_info.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
